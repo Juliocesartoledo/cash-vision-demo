@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#171428">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cash Vision AI">
+<title>Cash Vision AI — Demonstração</title>
+<style>
+:root{--bg:#171428;--panel:#242139;--panel2:#2c2944;--purple:#7650c8;--purple2:#8d68e8;--text:#f8f5ff;--muted:#c9c0e7;--line:#625a79;--green:#55d6a2;--yellow:#ffd45c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 14px env(safe-area-inset-bottom);min-height:100vh}
+header{text-align:center;padding:20px 4px 16px}h1{font-size:clamp(25px,7vw,34px);margin:0;color:#c7a9ff;letter-spacing:.3px}header p{margin:7px 0 0;color:var(--muted);font-size:14px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:4px 0 12px}.pill{font-size:11px;font-weight:700;letter-spacing:.4px;border:1px solid var(--line);border-radius:99px;padding:7px 10px;color:var(--muted)}.pill.demo{color:var(--yellow);border-color:#8d7333}
+nav{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}nav button{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:11px 4px;font-weight:700;font-size:12px}nav button.active{background:var(--purple);color:white;border-color:var(--purple2)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}.panel h2{font-size:14px;letter-spacing:.3px;margin:0 0 12px;color:#d6c5ff}.cameraBox{background:#080711;border-radius:10px;overflow:hidden;min-height:210px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;border:1px solid #39334e}.cameraBox video{display:block;width:100%;height:100%;object-fit:cover;position:absolute;inset:0}.cameraPlaceholder{text-align:center;padding:20px;color:#bcb4d6;font-size:13px;line-height:1.5;z-index:1}.cameraPlaceholder .camicon{font-size:38px;display:block;margin-bottom:8px}.cameraBox video[hidden]{display:none}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}button.primary,button.secondary,button.danger{border:0;border-radius:9px;padding:12px 10px;font-size:13px;font-weight:750;color:white;background:var(--purple);cursor:pointer}button.secondary{background:#38334f;border:1px solid #554c70}button.danger{background:#60354d;border:1px solid #8e4d70}.wide{width:100%;margin-top:8px}
+.statusgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stat{background:var(--panel2);padding:12px;border-radius:10px}.stat small{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}.stat strong{font-size:14px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#9c91b8;margin-right:6px}.dot.on{background:var(--green)}.hint{font-size:12px;line-height:1.45;color:var(--muted);margin:10px 0 0}.hidden{display:none!important}.upload{display:block;background:var(--panel2);border:1px dashed var(--line);border-radius:10px;padding:14px;text-align:center;color:var(--muted);font-size:13px}.upload input{display:block;width:100%;margin-top:10px;color:var(--muted)}.preview{width:100%;max-height:260px;object-fit:contain;border-radius:9px;background:#0b0914;margin-top:10px}.field{width:100%;background:#171428;border:1px solid var(--line);border-radius:8px;color:white;padding:11px;font-size:14px;margin-top:7px}.fieldlabel{display:block;font-size:12px;color:var(--muted);margin-top:12px}.settingrow{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #39334e;font-size:13px}.settingrow:last-child{border:0}.switch{accent-color:var(--purple2);width:20px;height:20px}.notice{background:#332b1e;border:1px solid #766037;border-radius:10px;padding:12px;color:#ffe8a8;font-size:12px;line-height:1.5}.footer{text-align:center;color:#8f86a9;font-size:10px;padding:8px 0 20px}
+@media(min-width:700px){body{max-width:760px;margin:auto;padding-left:22px;padding-right:22px}.cameraBox{aspect-ratio:16/9}.grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}}
+</style>
+</head>
+<body>
+<header><h1>CASH VISION AI</h1><p>Sistema inteligente de prevenção de perdas</p></header>
+<div class="topline"><span class="pill">PROTÓTIPO DE APRESENTAÇÃO</span><span class="pill demo">DEMO · SEM RECONHECIMENTO</span></div>
+<nav aria-label="Navegação">
+<button class="active" data-tab="camera">CÂMERA</button><button data-tab="reference">REFERÊNCIA</button><button data-tab="settings">CONFIGURAÇÕES</button>
+</nav>
+<main>
+<section id="tab-camera">
+<div class="panel"><h2>MONITORAMENTO AO VIVO</h2>
+<div class="cameraBox"><video id="video" autoplay playsinline muted hidden></video><div class="cameraPlaceholder" id="placeholder"><span class="camicon">◉</span><strong>Câmera aguardando ativação</strong><br>Toque em “Ligar câmera” e permita o acesso no Safari.</div></div>
+<div class="actions"><button class="primary" id="start">LIGAR CÂMERA</button><button class="secondary" id="stop">DESLIGAR CÂMERA</button></div>
+<button class="secondary wide" id="goRef">ENVIAR / TROCAR FOTO DE REFERÊNCIA</button>
+<p class="hint" id="cameraStatus"><span class="dot"></span>Câmera desligada</p>
+</div>
+<div class="panel"><h2>STATUS DO SISTEMA</h2><div class="statusgrid">
+<div class="stat"><small>CÂMERA</small><strong id="camStat">Desligada</strong></div>
+<div class="stat"><small>REFERÊNCIA</small><strong id="refStat">Não selecionada</strong></div>
+<div class="stat"><small>DETECÇÃO DE PESSOAS</small><strong>Não ativa</strong></div>
+<div class="stat"><small>COMPARAÇÃO FACIAL</small><strong>Não implementada</strong></div>
+</div><p class="hint">Esta demonstração mostra a interface e o acesso à câmera. Ela não detecta pessoas nem compara identidades.</p></div>
+</section>
+<section id="tab-reference" class="hidden">
+<div class="panel"><h2>FOTO DE REFERÊNCIA</h2>
+<label class="upload">Selecionar uma imagem autorizada<input id="file" type="file" accept="image/*"></label>
+<img id="refPreview" class="preview hidden" alt="Prévia da foto de referência">
+<p class="hint" id="refStatus">Nenhuma referência selecionada.</p>
+<div class="actions"><button class="secondary" id="clearRef">REMOVER REFERÊNCIA</button><button class="primary" id="backCam">VOLTAR À CÂMERA</button></div>
+<p class="hint">A imagem fica apenas nesta sessão do navegador; não é enviada a um servidor por esta demonstração.</p>
+</div>
+<div class="notice">Planejamento futuro: comparar a foto autorizada com rostos captados pela câmera usando um modelo apropriado, após validação técnica e análise de privacidade/LGPD. Nenhuma correspondência é simulada nesta versão.</div>
+</section>
+<section id="tab-settings" class="hidden">
+<div class="panel"><h2>CONFIGURAÇÕES</h2>
+<div class="settingrow"><span>Interface em modo demonstração</span><input class="switch" type="checkbox" checked disabled></div>
+<div class="settingrow"><span>Detecção de pessoas</span><span class="pill">A implementar</span></div>
+<div class="settingrow"><span>Comparação com referência</span><span class="pill">A implementar</span></div>
+<div class="settingrow"><span>Alertas sonoros</span><input class="switch" type="checkbox" id="sound"></div>
+<label class="fieldlabel" for="site">Identificação da loja (opcional)</label><input class="field" id="site" placeholder="Ex.: Unidade / loja piloto">
+<label class="fieldlabel" for="notes">Observações para a apresentação</label><textarea class="field" id="notes" rows="3" placeholder="Digite observações para demonstrar as configurações..."></textarea>
+<p class="hint">As configurações preenchidas são demonstrativas e não são salvas depois que a página é fechada.</p>
+</div>
+</section>
+</main>
+<div class="footer">CASH VISION AI · Protótipo demonstrativo · Não usar para decisões operacionais</div>
+<script>
+let stream=null;
+const $=id=>document.getElementById(id);
+function tab(name){document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));$('tab-'+name).classList.remove('hidden');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.tab)));
+$('goRef').onclick=()=>tab('reference');$('backCam').onclick=()=>tab('camera');
+$('start').onclick=async()=>{try{if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)throw new Error('A câmera exige uma página HTTPS aberta no Safari.');stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});$('video').srcObject=stream;$('video').hidden=false;$('placeholder').classList.add('hidden');$('camStat').textContent='Ligada';$('cameraStatus').innerHTML='<span class="dot on"></span>Câmera ligada · visualização local';}catch(e){$('cameraStatus').textContent='Não foi possível ligar a câmera: '+e.message;alert('Não foi possível acessar a câmera. Abra a página pelo Safari em um endereço HTTPS e permita o acesso.');}};
+function stopCamera(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}$('video').srcObject=null;$('video').hidden=true;$('placeholder').classList.remove('hidden');$('camStat').textContent='Desligada';$('cameraStatus').innerHTML='<span class="dot"></span>Câmera desligada';}
+$('stop').onclick=stopCamera;
+$('file').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(!f)return;if(!f.type.startsWith('image/')){alert('Escolha um arquivo de imagem.');return;}const url=URL.createObjectURL(f);$('refPreview').src=url;$('refPreview').classList.remove('hidden');$('refStatus').textContent='Referência carregada: '+f.name;$('refStat').textContent='Carregada';});
+$('clearRef').onclick=()=>{$('file').value='';if($('refPreview').src.startsWith('blob:'))URL.revokeObjectURL($('refPreview').src);$('refPreview').removeAttribute('src');$('refPreview').classList.add('hidden');$('refStatus').textContent='Nenhuma referência selecionada.';$('refStat').textContent='Não selecionada';};
+window.addEventListener('pagehide',stopCamera);
+</script>
+</body>
+</html>
